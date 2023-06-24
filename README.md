@@ -26,8 +26,10 @@ git clone https://github.com/tori29umai0123/LineShadowGen.git<br>
 ③LineShadowGen_run.batをダブルクリックすると自動でブラウザが立ち上がる。<br>
 
 # Local Upadate
-LineShadowGen_update.batをダブルクリックする。<br>
-更新の有無を聞かれたら『y』と入力。モデルのアップデートを聞かれたら『y』と入力。5分位かかります。<br>
+ソフトの更新はLineShadowGen_update.batをダブルクリックする。<br>
+更新の有無を聞かれたら『y』と入力。
+モデルの更新はLineShadowGen_update_model.batをダブルクリックする。<br>
+モデルのアップデートを聞かれたら『y』と入力。5分位かかります。<br>
 
 # Usage
 LineArtImage：線画を設定<br>
