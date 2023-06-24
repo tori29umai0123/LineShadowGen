@@ -18,7 +18,7 @@ if os.path.exists(folder_name) and os.path.isdir(folder_name):
 else:
     print(f"The '{folder_name}' folder does not exist.")
 
-def shadow_generation(init_image: Image, max_size: str, mode: str, prompt: str):
+def shadow_generation(init_image: Image, max_size: str,prompt: str):
     max_size = int(max_size)
     MaskON = False
 
@@ -27,11 +27,11 @@ def shadow_generation(init_image: Image, max_size: str, mode: str, prompt: str):
         os.makedirs(output_folder)
     timestamp = datetime.now().strftime("%Y%m%d%H%M%S")
     output_filename = f"output_image_{timestamp}.png"
-    output_image = ShadowGenerator.main(init_image, mask_image, MaskON = MaskON, max_size=max_size, mode=mode, prompt=prompt)
+    output_image = ShadowGenerator.main(init_image, mask_image, MaskON = MaskON, max_size=max_size,prompt=prompt)
     output_image.save(os.path.join(output_folder, output_filename))
     return output_image
 
-def shadow_generation_Mask(init_image: Image, mask_image: Image, max_size: str, mode: str, prompt: str):
+def shadow_generation_Mask(init_image: Image, mask_image: Image, max_size: str, prompt: str):
     max_size = int(max_size)
     if mask_image == None:
         MaskON = False
@@ -42,7 +42,7 @@ def shadow_generation_Mask(init_image: Image, mask_image: Image, max_size: str, 
         os.makedirs(output_folder)
     timestamp = datetime.now().strftime("%Y%m%d%H%M%S")
     output_filename = f"output_image_{timestamp}.png"
-    output_image = ShadowGenerator.main(init_image, mask_image, MaskON = MaskON, max_size=max_size, mode=mode, prompt=prompt)
+    output_image = ShadowGenerator.main(init_image, mask_image, MaskON = MaskON, max_size=max_size, prompt=prompt)
     output_image.save(os.path.join(output_folder, output_filename))
     return output_image
 
@@ -68,7 +68,6 @@ with gr.Blocks() as ui:
                 input_image = gr.Image(type="pil",label="LineArtImage")
                 with gr.Row():
                     max_size = gr.Textbox(label="Enter max_size",value = "960")
-                    mode = gr.Dropdown(["front"], value = "front", label="Light_type", show_label=True)
 
             with gr.Column():
                 prompt = gr.Textbox(label="Enter prompt",lines = 5)
@@ -76,7 +75,7 @@ with gr.Blocks() as ui:
                 prompt_btn.click(fn=prompt_generation, inputs=input_image, outputs=prompt)
                 mask_image = None
                 output=gr.Image(elem_id="output_image")
-                inputs=[input_image,max_size,mode,prompt]
+                inputs=[input_image,max_size,prompt]
                 shadow_btn = gr.Button("ShadowGenerate")
                 shadow_btn.click(fn=shadow_generation, inputs=inputs, outputs=output)
 
@@ -89,14 +88,13 @@ with gr.Blocks() as ui:
                 mask_btn.click(fn=mask_generation, inputs=input_image, outputs=mask_image)
                 with gr.Row():
                     max_size = gr.Textbox(label="Enter max_size",value = "960")
-                    mode = gr.Dropdown(["front"], value = "front", label="Light_type", show_label=True)
 
             with gr.Column():
                 prompt = gr.Textbox(label="Enter prompt",lines = 5)
                 prompt_btn = gr.Button("PromptGenerate")
                 prompt_btn.click(fn=prompt_generation, inputs=input_image, outputs=prompt)
                 output=gr.Image(elem_id="output_image")
-                inputs=[input_image,mask_image,max_size,mode,prompt]
+                inputs=[input_image,mask_image,max_size,prompt]
                 shadow_btn = gr.Button("ShadowGenerate")
                 shadow_btn.click(fn=shadow_generation_Mask, inputs=inputs, outputs=output)
 

@@ -137,17 +137,17 @@ def load_pipeline(vae, control_net, control_net_canny):
         torch_dtype=torch.float16,
     ).to(CUDA_DEVICE)
 
-def main(init_image, mask_image, MaskON, max_size,mode, prompt):
+def main(init_image, mask_image, MaskON, max_size, prompt):
     torch.cuda.empty_cache()
-
-    if mode == "front":
-        control_model_path = "Models/controlnet/control_v11p_sd21_shadow_front"
 
     set_torch_cuda_memory_allocation()
 
     vae = load_counterfeit_autoencoder()
+
+    control_model_path = "Models/controlnet/control_v11p_sd21_shadow_front"
     control_net = load_model_from_pretrained_path(control_model_path)
-    control_net_canny = load_model_from_pretrained_path("Models/controlnet/control_v11p_sd21_canny")
+    control_model_canny_path = "Models/controlnet/control_v11p_sd21_canny"
+    control_net_canny = load_model_from_pretrained_path(control_model_canny_path)
 
     pipe = load_pipeline(vae, control_net, control_net_canny)
     pipe.load_textual_inversion("Models/textual_inversion/hakoMay", weight_name="Mayng.safetensors", token="Mayng", torch_dtype=torch.float16)
@@ -197,7 +197,6 @@ if __name__ == "__main__":
     mask_image = Image.open(mask_path).convert("RGB")
     MaskON = True
     max_size = 800
-    mode = "front"
     prompt = "1girl, solo,gloves, short hair, pants, tailcoat,full body, white background, simple background, looking at viewer,smile, long sleeves, standing, holding, formal, flute"
-    image = main(init_image, mask_image, MaskON, max_size,mode, prompt)
+    image = main(init_image, mask_image, MaskON, max_size,prompt)
     image.save("output.png")
