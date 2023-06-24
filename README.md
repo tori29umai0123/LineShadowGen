@@ -29,3 +29,4 @@ PromptGenerate：タグの自動分析<br>
 （Inpaintタブの場合）<br>
 MaskImage：マスク画像を設定<br>
 MaskGenerate：マスクの自動生成<br>
+ShadowGenerate：陰影生成ボタン
