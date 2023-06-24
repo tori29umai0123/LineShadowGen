@@ -9,7 +9,7 @@ LineShadowGenは線画から陰影をAIによって生成するソフトです�
 ②Colabのメニューから、『ランタイム』→『ランタイムのタイプを変更』→以下のように設定
 ![2](https://github.com/tori29umai0123/LineShadowGen/assets/72191117/f8cfa7ac-ed29-4353-bb0c-dd55a1a43137)
 
-②Colabのメニューから、『すべてのセルを実行』
+②Colabのメニューから、『すべてのセルを実行』（10分位かかります）
 ![3](https://github.com/tori29umai0123/LineShadowGen/assets/72191117/2eb56121-b061-4f26-9503-e078269fd27f)
 
 ④public URLをクリック
@@ -29,6 +29,3 @@ PromptGenerate：タグの自動分析<br>
 （Inpaintタブの場合）<br>
 MaskImage：マスク画像を設定<br>
 MaskGenerate：マスクの自動生成<br>
-
-
-
