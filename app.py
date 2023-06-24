@@ -107,12 +107,12 @@ with gr.Blocks() as ui:
 if __name__ == "__main__":
     if len(sys.argv) > 1:
         if sys.argv[1] == "share":
-            webbrowser.open("http://localhost:7860", new=2, autoraise=True)
+            webbrowser.open("http://localhost:7860", new=2, autoraise=True,enable_queue=True)
             ui.launch(share=True)
         else:
-            webbrowser.open("http://localhost:7860", new=2, autoraise=True)
+            webbrowser.open("http://localhost:7860", new=2, autoraise=True,enable_queue=True)
             ui.launch(share=False)
 
     else:
-        webbrowser.open("http://localhost:7860", new=2, autoraise=True)
+        webbrowser.open("http://localhost:7860", new=2, autoraise=True,enable_queue=True)
         ui.launch(share=False)
