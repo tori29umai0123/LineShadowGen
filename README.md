@@ -17,7 +17,11 @@ https://note.com/tori29umai/n/ne5fc338ae614<br>
 
 # Local Install
 Python3.10.Xがインストールされている環境前提です。（Python 3.10.8で起動確認済み）<br>
-①適当なディレクトリでgit clone https://github.com/tori29umai0123/LineShadowGen.git<br>
+①適当なディレクトリでリポジトリをgit clone<br>
+```
+cd C:/
+git clone https://github.com/tori29umai0123/LineShadowGen.git<br>
+```
 ②install.ps1を右クリック→PowerShellで実行（5分位かかります）<br>
 ③LineShadowGen_run.batをダブルクリックすると自動でブラウザが立ち上がる。<br>
 
@@ -28,7 +32,6 @@ LineShadowGen_update.batをダブルクリックする。<br>
 # Usage
 LineArtImage：線画を設定<br>
 Enter max_size：画像の長辺の最大サイズを入力（大きければ大きいほどPCスペックが必要です）<br>
-Light_type：現状『front（順光）』のみ、将来的に左右からの光、逆光設定を追加する予定<br>
 prompt：画像の内容のタグ<br>
 PromptGenerate：タグの自動分析<br>
 （Inpaintタブの場合）<br>
