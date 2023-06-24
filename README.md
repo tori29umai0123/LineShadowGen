@@ -1,7 +1,7 @@
 # LineShadowGen
 LineShadowGenは線画から陰影をAIによって生成するソフトです。<br>
 ![新規キャンバス1](https://github.com/tori29umai0123/LineShadowGen/assets/72191117/77f49190-871b-4e1b-9935-134de2c480e4)
-参考：https://note.com/tori29umai/n/ne5fc338ae614<br>
+https://note.com/tori29umai/n/ne5fc338ae614<br>
 
 # Install
 ①以下のColabのリンクをクリックしてください<br>
