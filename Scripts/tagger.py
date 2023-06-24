@@ -90,13 +90,6 @@ def main(image, model):
         tag_text = ", ".join(combined_tags)
         return tag_text
 
-    if not isinstance(image, Image.Image):
-        image = Image.fromarray(image)
-
-    if image.mode != "RGB":
-        image = image.convert("RGB")
-
-    image = np.array(image)
     image = preprocess_image(image)
     tag = run_single_image(image, model)
     return tag
