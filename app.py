@@ -45,7 +45,6 @@ def shadow_generation_Mask(init_image: Image, mask_image: Image, max_size: str, 
     output_image = ShadowGenerator.main(init_image, mask_image, MaskON = MaskON, max_size=max_size, mode=mode, prompt=prompt)
     output_image.save(os.path.join(output_folder, output_filename))
     return output_image
-    return output_image
 
 
 def mask_generation(image: Image):
@@ -88,7 +87,6 @@ with gr.Blocks() as ui:
                 mask_image = gr.Image(type="pil",label="MaskImage")
                 mask_btn = gr.Button("MaskGenerate")
                 mask_btn.click(fn=mask_generation, inputs=input_image, outputs=mask_image)
-                prompt_btn.click(fn=prompt_generation, inputs=input_image, outputs=prompt)
                 with gr.Row():
                     max_size = gr.Textbox(label="Enter max_size",value = "960")
                     mode = gr.Dropdown(["front"], value = "front", label="Light_type", show_label=True)
