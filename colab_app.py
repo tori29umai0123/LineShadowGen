@@ -8,15 +8,6 @@ from Scripts import tagger  # taggerモジュールをインポート
 from Scripts import ShadowGenerator  # taggerモジュールをインポート
 import os
 from datetime import datetime
-import webbrowser
-
-folder_name = "flagged"
-
-if os.path.exists(folder_name) and os.path.isdir(folder_name):
-    os.rmdir(folder_name)
-    print(f"The '{folder_name}' folder has been deleted.")
-else:
-    print(f"The '{folder_name}' folder does not exist.")
 
 def shadow_generation(init_image: Image, max_size: str,prompt: str):
     max_size = int(max_size)
@@ -103,12 +94,9 @@ with gr.Blocks() as ui:
 if __name__ == "__main__":
     if len(sys.argv) > 1:
         if sys.argv[1] == "share":
-            webbrowser.open("http://localhost:7860", new=2, autoraise=True)
             ui.launch(share=True,enable_queue=True)
         else:
-            webbrowser.open("http://localhost:7860", new=2, autoraise=True)
             ui.launch(share=False,enable_queue=True)
 
     else:
-        webbrowser.open("http://localhost:7860", new=2, autoraise=True)
         ui.launch(share=False,enable_queue=True)
