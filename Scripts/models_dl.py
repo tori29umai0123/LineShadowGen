@@ -61,12 +61,10 @@ def download_diffusion_model(model_dir):
     check_and_download_model(model_dir, MODEL_ID, SUB_DIRS, FILES)
 
 def download_vae_model(model_dir):
-    MODEL_ID = "gsdf/Counterfeit-V2.5"
-    SUB_DIRS = [
-        ("vae", ["config.json", "diffusion_pytorch_model.bin"]),
-    ]
+    MODEL_ID = "tori29umai/sd_vae_ft_ema_diffusers"
+    FILES = ["config.json", "diffusion_pytorch_model.bin"]
 
-    check_and_download_model(model_dir, MODEL_ID, SUB_DIRS, [])
+    check_and_download_model(model_dir, MODEL_ID, [], FILES)
 
 def download_controlnet_model(model_dir):
     MODEL_ID = "tori29umai/controlnet_diffusers"
@@ -96,7 +94,7 @@ if __name__ == "__main__":
     stable_diffusion_path = "Models/Stable-diffusion/Secta_diffusers"
     download_diffusion_model(stable_diffusion_path)
 
-    vae_path = "Models/vae/Counterfeit"
+    vae_path = "Models/vae/sd_vae_ft_ema_diffusers"
     download_vae_model(vae_path)
 
     controlnet_path = "Models/controlnet"

@@ -123,7 +123,7 @@ def set_torch_cuda_memory_allocation():
     torch.cuda.memory._set_allocator_settings("max_split_size_mb:100")
 
 def load_counterfeit_autoencoder():
-    return AutoencoderKL.from_pretrained('Models/vae/Counterfeit/vae/', torch_dtype=torch.float16).to(CUDA_DEVICE)
+    return AutoencoderKL.from_pretrained('Models/vae/sd_vae_ft_ema_diffusers/', torch_dtype=torch.float16).to(CUDA_DEVICE)
 
 def load_model_from_pretrained_path(path):
     return ControlNetModel.from_pretrained(path, torch_dtype=torch.float16).to(CUDA_DEVICE)
