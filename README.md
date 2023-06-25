@@ -31,6 +31,9 @@ git clone https://github.com/tori29umai0123/LineShadowGen.git<br>
 モデルの更新はLineShadowGen_update_model.batをダブルクリックする。<br>
 モデルのアップデートを聞かれたら『y』と入力。5分位かかります。<br>
 
+# Local Uninstall
+フォルダごと削除してください
+
 # Usage
 LineArtImage：線画を設定<br>
 Enter max_size：画像の長辺の最大サイズを入力（大きければ大きいほどPCスペックが必要です）<br>
