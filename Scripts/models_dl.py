@@ -47,7 +47,7 @@ def check_and_download_model(model_dir, model_id, sub_dirs, files):
     else:
         print("モデルは既にダウンロード済みです。")
 
-def download_diffusion_model(model_dir):
+def download_diffusion_model_Secta(model_dir):
     MODEL_ID = "tori29umai/Secta_diffusers"
     SUB_DIRS = [
         ("feature_extractor", ["preprocessor_config.json"]),
@@ -67,13 +67,16 @@ def download_vae_model(model_dir):
     check_and_download_model(model_dir, MODEL_ID, [], FILES)
 
 def download_controlnet_model(model_dir):
-    MODEL_ID = "tori29umai/controlnet_diffusers"
+    MODEL_ID = "tori29umai/control_v11p_sd21_shadow_diffusers"
     SUB_DIRS = [
-        ("control_v11p_sd21_canny", ["config.json", "diffusion_pytorch_model.safetensors"]),
         ("control_v11p_sd21_shadow_front", ["config.json", "diffusion_pytorch_model.safetensors"]),
     ]
-
     check_and_download_model(model_dir, MODEL_ID, SUB_DIRS, [])
+
+def download_contolnet_canny_model(model_dir):
+    MODEL_ID = "thibaud/controlnet-sd21-canny-diffusers"
+    FILES = ["config.json","diffusion_pytorch_model.bin"]
+    check_and_download_model(model_dir, MODEL_ID, [], FILES)
 
 def download_textual_inversion_model(model_dir):
     MODEL_ID = "852wa/hakoMay"
@@ -91,14 +94,17 @@ def download_tagger_model(model_dir):
     check_and_download_model(model_dir, MODEL_ID, SUB_DIRS, FILES)
 
 if __name__ == "__main__":
-    stable_diffusion_path = "Models/Stable-diffusion/Secta_diffusers"
-    download_diffusion_model(stable_diffusion_path)
+    stable_diffusion_Secta_path = "Models/Stable-diffusion/Secta_diffusers"
+    download_diffusion_model_Secta(stable_diffusion_Secta_path)
 
     vae_path = "Models/vae/sd_vae_ft_ema_diffusers"
     download_vae_model(vae_path)
 
     controlnet_path = "Models/controlnet"
     download_controlnet_model(controlnet_path)
+
+    contolnet_canny_path = "Models/controlnet/control_v11p_sd21_canny"
+    download_contolnet_canny_model(contolnet_canny_path)
 
     textual_inversion_path = "Models/textual_inversion/hakoMay"
     download_textual_inversion_model(textual_inversion_path)
