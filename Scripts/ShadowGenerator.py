@@ -1,12 +1,10 @@
 ﻿import torch
-from diffusers import AutoencoderKL, StableDiffusionControlNetPipeline, ControlNetModel
+from diffusers import AutoencoderKL, StableDiffusionControlNetPipeline, StableDiffusionControlNetPipeline, ControlNetModel
 from torch import autocast
 from PIL import Image, ImageOps, ImageEnhance
 import numpy as np
 
 CUDA_DEVICE = 'cuda'
-
-# ヘルパー関数
 
 def round_to_multiple_of_8(value):
     # 値を8の倍数に丸める
@@ -119,7 +117,6 @@ def calculate_resized_dimensions(image_size, max_dim):
 # メインのロジック
 
 def set_torch_cuda_memory_allocation():
-
     torch.cuda.memory._set_allocator_settings("max_split_size_mb:100")
 
 def load_counterfeit_autoencoder():
@@ -130,73 +127,69 @@ def load_model_from_pretrained_path(path):
 
 def load_pipeline(vae, control_net, control_net_canny):
     return StableDiffusionControlNetPipeline.from_pretrained(
-        "Models/Stable-diffusion/Secta_diffusers",
+        "Models/Stable-diffusion/Secta_hakoMayD_diffusers",
         controlnet=[control_net, control_net_canny],        
         vae=vae,
         revision="fp16", 
         torch_dtype=torch.float16,
-    ).to(CUDA_DEVICE)
+    )
 
-def main(init_image, mask_image, MaskON, max_size, prompt):
+def main(init_image, mask_image, MaskON, max_size,prompt):
     torch.cuda.empty_cache()
-
     set_torch_cuda_memory_allocation()
-
     vae = load_counterfeit_autoencoder()
 
     control_model_path = "Models/controlnet/control_v11p_sd21_shadow_front"
     control_net = load_model_from_pretrained_path(control_model_path)
+
     control_model_canny_path = "Models/controlnet/control_v11p_sd21_canny"
     control_net_canny = load_model_from_pretrained_path(control_model_canny_path)
 
-    pipe = load_pipeline(vae, control_net, control_net_canny)
+    pipe = load_pipeline(vae, control_net, control_net_canny).to(CUDA_DEVICE) 
     pipe.load_textual_inversion("Models/textual_inversion/hakoMay", weight_name="Mayng.safetensors", token="Mayng", torch_dtype=torch.float16)
-    pipe.enable_xformers_memory_efficient_attention()
     pipe.enable_attention_slicing("max")
-
+    pipe.enable_xformers_memory_efficient_attention() # required
+    pipe.safety_checker = None if pipe.safety_checker is None else lambda images, **kwargs: (images, False)
     negative_prompt = "Mayng, (low quality, worst quality:1.4)"
-
 
     if MaskON != False:
         trimmed_image, min_row, min_col, init_width, init_height, init_aspect_ratio = trim_image_with_mask(init_image, mask_image)
         resized_image, trimmed_width, trimmed_height = resize_image(trimmed_image, max_size)
         invert_image = ImageOps.invert(resized_image)
 
-        with autocast("cuda"):
-            images = pipe(
-                prompt="(greyscale, monochrome, watercolor_style:1.4)" + prompt,
-                negative_prompt=negative_prompt,
-                height=resized_image.height,
-                width=resized_image.width,
-                image=[resized_image, invert_image],
-            ).images
+        image = pipe(
+            prompt="(greyscale, monochrome:1.4)," + prompt,
+            negative_prompt=negative_prompt,
+            guidance_scale=7.0,
+            num_inference_steps=50,
+            image=[resized_image, invert_image]
+        ).images[0]
 
-        restored_image = restore_image_process(images[0], trimmed_width, trimmed_height, min_row, min_col, mask_image, init_image, max_size)
+        restored_image = restore_image_process(image, trimmed_width, trimmed_height, min_row, min_col, mask_image, init_image, max_size)
         return restored_image
 
     else:
         resized_image, init_width, init_height = resize_image(init_image, max_size)
         invert_image = ImageOps.invert(resized_image)
 
-        with autocast("cuda"):
-            images = pipe(
-                prompt=prompt,
-                negative_prompt=negative_prompt,
-                height=resized_image.height,
-                width=resized_image.width,
-                image=[resized_image, invert_image],
-            ).images
-
-        restored_image = restore_image_size(images[0], init_width, init_height, max_size)
+        image = pipe(
+            prompt="(greyscale, monochrome:1.4)," + prompt,
+            negative_prompt=negative_prompt,
+            guidance_scale=7.0,
+            num_inference_steps=50,
+            image=[resized_image, invert_image]
+        ).images[0]
+        restored_image = restore_image_size(image, init_width, init_height, max_size)
         return restored_image
 
+
 if __name__ == "__main__":
-    image_path = "input1.png"
-    mask_path = "input1_mask.png"
+    image_path = "1.png"
+    mask_path = "1_mask.png"
     init_image = Image.open(image_path).convert("RGB")
     mask_image = Image.open(mask_path).convert("RGB")
     MaskON = True
-    max_size = 800
+    max_size = 960
     prompt = "1girl, solo,gloves, short hair, pants, tailcoat,full body, white background, simple background, looking at viewer,smile, long sleeves, standing, holding, formal, flute"
     image = main(init_image, mask_image, MaskON, max_size,prompt)
-    image.save("output.png")
+    image.save("Secta_diffuserss_960.png")

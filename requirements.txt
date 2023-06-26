@@ -8,3 +8,4 @@ transformers==4.30.2
 keras==2.10.0
 tensorflow==2.10.1
 xformers==0.0.20
+scipy==1.10.1

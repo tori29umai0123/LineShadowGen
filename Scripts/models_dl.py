@@ -47,8 +47,8 @@ def check_and_download_model(model_dir, model_id, sub_dirs, files):
     else:
         print("モデルは既にダウンロード済みです。")
 
-def download_diffusion_model_Secta(model_dir):
-    MODEL_ID = "tori29umai/Secta_diffusers"
+def download_diffusion_model_Secta_hakoMayD(model_dir):
+    MODEL_ID = "tori29umai/Secta_hakoMayD_diffusers"
     SUB_DIRS = [
         ("feature_extractor", ["preprocessor_config.json"]),
         ("scheduler", ["scheduler_config.json"]),
@@ -59,6 +59,19 @@ def download_diffusion_model_Secta(model_dir):
     FILES = ["model_index.json"]
 
     check_and_download_model(model_dir, MODEL_ID, SUB_DIRS, FILES)
+
+def download_diffusion_model_unlimited_replicant(model_dir):
+    MODEL_ID = "alfredplpl/unlimited-replicant"
+    SUB_DIRS = [
+        ("scheduler", ["scheduler_config.json"]),
+        ("text_encoder", ["config.json", "model.safetensors"]),
+        ("tokenizer", ["merges.txt", "special_tokens_map.json", "tokenizer_config.json", "vocab.json"]),
+        ("unet", ["config.json", "diffusion_pytorch_model.safetensors"]),
+        ("vae", ["config.json", "diffusion_pytorch_model.safetensors"]),
+    ]
+    FILES = ["model_index.json","preprocessor_config.json"]
+    check_and_download_model(model_dir, MODEL_ID, SUB_DIRS, FILES)
+
 
 def download_vae_model(model_dir):
     MODEL_ID = "tori29umai/sd_vae_ft_ema_diffusers"
@@ -94,8 +107,8 @@ def download_tagger_model(model_dir):
     check_and_download_model(model_dir, MODEL_ID, SUB_DIRS, FILES)
 
 if __name__ == "__main__":
-    stable_diffusion_Secta_path = "Models/Stable-diffusion/Secta_diffusers"
-    download_diffusion_model_Secta(stable_diffusion_Secta_path)
+    stable_diffusion_Secta_hakoMayD_path = "Models/Stable-diffusion/Secta_hakoMayD_diffusers"
+    download_diffusion_model_Secta_hakoMayD(stable_diffusion_Secta_hakoMayD_path )
 
     vae_path = "Models/vae/sd_vae_ft_ema_diffusers"
     download_vae_model(vae_path)
