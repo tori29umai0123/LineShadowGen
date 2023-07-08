@@ -48,7 +48,6 @@ def shadow_generation_Normalmap(init_image: Image, max_size: str,prompt: str):
     output_image.save(os.path.join(output_folder, output_filename))
     return output_image
 
-
 def mask_generation(image: Image):
     result = mask.main(image)
     return result
