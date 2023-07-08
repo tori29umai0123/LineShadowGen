@@ -141,7 +141,7 @@ def main(init_image, mask_image, mode, max_size,prompt):
     control_model_path = "Models/controlnet/control_v11p_sd21_shadow_front"
     control_net = load_model_from_pretrained_path(control_model_path)
 
-    control_model_normalmap_path = "Models/controlnet/control_v11p_sd21_normalmap"
+    control_model_normalmap_path = "Models/controlnet/control_v11p_sd21_normal"
     control_net_normalmap = load_model_from_pretrained_path(control_model_normalmap_path)
 
     control_model_canny_path = "Models/controlnet/control_v11p_sd21_canny"

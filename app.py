@@ -57,6 +57,7 @@ def shadow_generation_Normalmap(init_image: Image, max_size: str,prompt: str):
     output_image.save(os.path.join(output_folder, output_filename))
     return output_image
 
+
 def mask_generation(image: Image):
     result = mask.main(image)
     return result
@@ -124,6 +125,7 @@ with gr.Blocks() as ui:
                 inputs=[input_image,max_size,prompt]
                 shadow_btn = gr.Button("ShadowGenerate")
                 shadow_btn.click(fn=shadow_generation_Normalmap, inputs=inputs, outputs=output)
+
 
 if __name__ == "__main__":
     if len(sys.argv) > 1:

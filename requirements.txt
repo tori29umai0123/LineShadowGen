@@ -1,4 +1,4 @@
-gradio==3.16.2
+gradio==3.36.1
 opencv-python==4.7.0.72
 Pillow==9.4.0
 requests
@@ -8,4 +8,3 @@ transformers==4.30.2
 keras==2.10.0
 tensorflow==2.10.1
 xformers==0.0.20
-scipy==1.10.1
