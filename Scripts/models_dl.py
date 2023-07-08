@@ -79,10 +79,17 @@ def download_vae_model(model_dir):
 
     check_and_download_model(model_dir, MODEL_ID, [], FILES)
 
-def download_controlnet_model(model_dir):
+def download_controlnet_shadow_model(model_dir):
     MODEL_ID = "tori29umai/control_v11p_sd21_shadow_diffusers"
     SUB_DIRS = [
         ("control_v11p_sd21_shadow_front", ["config.json", "diffusion_pytorch_model.safetensors"]),
+    ]
+    check_and_download_model(model_dir, MODEL_ID, SUB_DIRS, [])
+
+def download_controlnet_normalmap_model(model_dir):
+    MODEL_ID = "tori29umai/control_v11p_sd21_normalmap_diffusers"
+    SUB_DIRS = [
+        ("control_v11p_sd21_normalmap", ["config.json", "diffusion_pytorch_model.safetensors"]),
     ]
     check_and_download_model(model_dir, MODEL_ID, SUB_DIRS, [])
 
@@ -113,8 +120,11 @@ if __name__ == "__main__":
     vae_path = "Models/vae/sd_vae_ft_ema_diffusers"
     download_vae_model(vae_path)
 
-    controlnet_path = "Models/controlnet"
-    download_controlnet_model(controlnet_path)
+    controlnet_shadow_path = "Models/controlnet"
+    download_controlnet_shadow_model(controlnet_shadow_path)
+
+    controlnet_normalmap_path = "Models/controlnet"
+    download_controlnet_normalmap_model(controlnet_normalmap_path)
 
     contolnet_canny_path = "Models/controlnet/control_v11p_sd21_canny"
     download_contolnet_canny_model(contolnet_canny_path)

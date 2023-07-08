@@ -20,29 +20,40 @@ else:
 
 def shadow_generation(init_image: Image, max_size: str,prompt: str):
     max_size = int(max_size)
-    MaskON = False
-
+    mode = "MaskOFF"
     output_folder = "output"
     if not os.path.exists(output_folder):
         os.makedirs(output_folder)
     timestamp = datetime.now().strftime("%Y%m%d%H%M%S")
     output_filename = f"output_image_{timestamp}.png"
-    output_image = ShadowGenerator.main(init_image, mask_image, MaskON = MaskON, max_size=max_size,prompt=prompt)
+    output_image = ShadowGenerator.main(init_image, mask_image, mode , max_size=max_size,prompt=prompt)
     output_image.save(os.path.join(output_folder, output_filename))
     return output_image
 
 def shadow_generation_Mask(init_image: Image, mask_image: Image, max_size: str, prompt: str):
     max_size = int(max_size)
     if mask_image == None:
-        MaskON = False
+        mode = "MaskOFF"
     else:
-        MaskON = True
+        mode = "MaskON"
     output_folder = "output"
     if not os.path.exists(output_folder):
         os.makedirs(output_folder)
     timestamp = datetime.now().strftime("%Y%m%d%H%M%S")
     output_filename = f"output_image_{timestamp}.png"
-    output_image = ShadowGenerator.main(init_image, mask_image, MaskON = MaskON, max_size=max_size, prompt=prompt)
+    output_image = ShadowGenerator.main(init_image, mask_image, mode, max_size=max_size, prompt=prompt)
+    output_image.save(os.path.join(output_folder, output_filename))
+    return output_image
+
+def shadow_generation_Normalmap(init_image: Image, max_size: str,prompt: str):
+    max_size = int(max_size)
+    mode = "Normalmap"
+    output_folder = "output"
+    if not os.path.exists(output_folder):
+        os.makedirs(output_folder)
+    timestamp = datetime.now().strftime("%Y%m%d%H%M%S")
+    output_filename = f"output_image_{timestamp}.png"
+    output_image = ShadowGenerator.main(init_image, mask_image, mode , max_size=max_size,prompt=prompt)
     output_image.save(os.path.join(output_folder, output_filename))
     return output_image
 
@@ -98,6 +109,22 @@ with gr.Blocks() as ui:
                 shadow_btn = gr.Button("ShadowGenerate")
                 shadow_btn.click(fn=shadow_generation_Mask, inputs=inputs, outputs=output)
 
+    with gr.Tab("Normalmap"):
+        with gr.Row():
+            with gr.Column():
+                input_image = gr.Image(type="pil",label="LineArtImage")
+                with gr.Row():
+                    max_size = gr.Textbox(label="Enter max_size",value = "960")
+
+            with gr.Column():
+                prompt = gr.Textbox(label="Enter prompt",lines = 5)
+                prompt_btn = gr.Button("PromptGenerate")
+                prompt_btn.click(fn=prompt_generation, inputs=input_image, outputs=prompt)
+                mask_image = None
+                output=gr.Image(elem_id="output_image")
+                inputs=[input_image,max_size,prompt]
+                shadow_btn = gr.Button("ShadowGenerate")
+                shadow_btn.click(fn=shadow_generation_Normalmap, inputs=inputs, outputs=output)
 
 
 if __name__ == "__main__":
