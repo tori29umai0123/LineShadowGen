@@ -43,3 +43,12 @@ PromptGenerate：タグの自動分析<br>
 MaskImage：マスク画像を設定<br>
 MaskGenerate：マスクの自動生成<br>
 ShadowGenerate：陰影生成ボタン
+
+# NormalMap
+![4](https://github.com/tori29umai0123/LineShadowGen/assets/72191117/a2b2796d-edc4-40fe-b105-37967730aeda)<br>
+NormalMapタブで線画からノーマルマップ（疑似3D画像）を出力できます。<br>
+出力した画像は以下のURLのwebアプリからライティングできます。<br>
+https://tori29umai0123.github.io/NornamalmapLighting_webGL/
+
+ローカルでライティングしたい場合は以下のWin用アプリを使用してください。
+https://github.com/tori29umai0123/NornamalmapLighting/releases/tag/NornamalmapLighting_1.0
