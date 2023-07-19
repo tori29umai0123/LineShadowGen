@@ -13,7 +13,7 @@ https://note.com/tori29umai/n/ne5fc338ae614<br>
 ②Colabのメニューから、『すべてのセルを実行』（5分位かかります）
 ![3](https://github.com/tori29umai0123/LineShadowGen/assets/72191117/2eb56121-b061-4f26-9503-e078269fd27f)
 
-④public URLをクリック
+④一番下の行のpublic URLをクリック
 
 # Local Install
 Python3.10.Xがインストールされている環境前提です。（Python 3.10.8で起動確認済み）<br>
